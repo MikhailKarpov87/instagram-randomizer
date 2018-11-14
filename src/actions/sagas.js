@@ -13,26 +13,70 @@ import {
   UNKNOWN_PIC_URL
 } from "../constants";
 import { getProfileImageURL, timeout, filterInput } from "../helpers";
-import { all, takeEvery, takeLatest, put } from "redux-saga/Effects";
+import { all, takeEvery, takeLatest, put, call, select } from "redux-saga/Effects";
 
 export function* rootSaga() {
-  yield all([watchChangeLanguage()]);
+  yield all([watchChangeLanguage(), watchInputChange(), watchFetchingData()]);
 }
 
+//  Watch sagas
 function* watchChangeLanguage() {
   yield takeLatest("HANDLE_CHANGE_LANGUAGE", changeLanguage);
 }
 
+function* watchInputChange() {
+  yield takeLatest("HANDLE_UPDATE_INPUT", handleInput);
+}
+
+function* watchFetchingData() {
+  yield takeLatest("HANDLE_FETCHING_DATA", handleFetchingData);
+}
+
+//  Worker sagas
 function* changeLanguage(value) {
   yield put({ type: CHANGE_LANGUAGE, payload: value.payload });
 }
 
-export function handleInput(input) {
+function* handleInput(action) {
   //  Filtering textarea input with helper function
-  const resultInput = filterInput(input);
+  const resultInput = yield filterInput(action.payload);
+  yield put({ type: UPDATE_INPUT, payload: resultInput });
+}
+
+function* handleFetchingData(action) {
+  yield put({ type: FETCHING_DATA });
+  const profileNamesArray = action.payload.split("\n").filter(line => !!line);
+  const profilesNum = profileNamesArray.length;
+  for (let id in profileNamesArray) {
+    const { profiles } = yield select();
+    const data = yield call(() => {
+      return axios
+        .get(`${BASE_URL}/${profileNamesArray[id]}/`)
+        .then(data => {
+          // console.log(data);
+          const img_url = getProfileImageURL(data.data) || UNKNOWN_PIC_URL;
+          return {
+            data: { name: profileNamesArray[id], img: img_url },
+            progress: { done: profiles.length + 1, total: profilesNum }
+          };
+        })
+        .catch(error => {
+          return {
+            data: { name: profileNamesArray[id], img: UNKNOWN_PIC_URL },
+            progress: { done: profiles.length + 1, total: profilesNum }
+          };
+        });
+    });
+    console.log(data);
+    yield put(fetchDataSuccess(data));
+  }
+}
+
+export function fetchDataSuccess(data) {
+  console.log(data);
   return {
-    type: UPDATE_INPUT,
-    payload: resultInput
+    type: FETCHING_DATA_SUCCESS,
+    payload: data
   };
 }
 
@@ -59,24 +103,12 @@ export function fetchUsersPicsOld(profileNames) {
           //   })
           // );
 
-          const img_url = getProfileImageURL(data.data) || UNKNOWN_PIC_URL;
-          dispatch(
-            getDataSuccess({
-              data: { name: profileNamesArray[id], img: img_url },
-              progress: { done: profiles.length + 1, total: profilesNum }
-            })
-          );
+          // const img_url = getProfileImageURL(data.data) || UNKNOWN_PIC_URL;
         })
         .catch(error => {
           const { profiles } = getState();
           //  If profile image fetching was not successful for some reason(network issue, wrong profile name, etc):
           //  then return UNKNOWN_IMG_URL instead
-          dispatch(
-            getDataSuccess({
-              data: { name: profileNamesArray[id], img: UNKNOWN_PIC_URL },
-              progress: { done: profiles.length + 1, total: profilesNum }
-            })
-          );
         });
     }
   };
@@ -85,14 +117,6 @@ export function fetchUsersPicsOld(profileNames) {
 //Loading = true while performing request
 export function getData() {
   return { type: FETCHING_DATA };
-}
-
-//returning profile data when request is performed
-export function getDataSuccess(data) {
-  return {
-    type: FETCHING_DATA_SUCCESS,
-    payload: data
-  };
 }
 
 export function startPicking(profiles, winnersNum, time) {

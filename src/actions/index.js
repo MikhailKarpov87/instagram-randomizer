@@ -14,21 +14,23 @@ import {
 } from "../constants";
 import { getProfileImageURL, timeout, filterInput } from "../helpers";
 
+export function changeLanguage(value) {
+  return { type: "HANDLE_CHANGE_LANGUAGE", payload: value };
+}
+
 export function handleInput(input) {
-  //  Filtering textarea input with helper function
-  const resultInput = filterInput(input);
-  return {
-    type: UPDATE_INPUT,
-    payload: resultInput
-  };
+  return { type: "HANDLE_UPDATE_INPUT", payload: input };
+}
+
+export function fetchUsersPics(profileNames) {
+  return { type: "HANDLE_FETCHING_DATA", payload: profileNames };
 }
 
 //Action for getting data from BASE_URL based on search term.
 //newRequest argument is flag used to differ new search request
 //from pagination requests and sort/filter requests.
-export function fetchUsersPics(profileNames) {
+export function fetchUsersPicsOld(profileNames) {
   return (dispatch, getState) => {
-    dispatch(getData());
     const profileNamesArray = profileNames.split("\n").filter(line => !!line);
     const profilesNum = profileNamesArray.length;
     for (let id in profileNamesArray) {
@@ -69,11 +71,6 @@ export function fetchUsersPics(profileNames) {
   };
 }
 
-//Loading = true while performing request
-export function getData() {
-  return { type: FETCHING_DATA };
-}
-
 //returning profile data when request is performed
 export function getDataSuccess(data) {
   return {
@@ -111,13 +108,6 @@ export function startPicking(profiles, winnersNum, time) {
 
 export function removeAll() {
   return { type: REMOVE_ALL };
-}
-
-export function changeLanguage(value) {
-  return {
-    type: CHANGE_LANGUAGE,
-    payload: value
-  };
 }
 
 export function updateWinnersNum(winnersNum) {

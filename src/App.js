@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import reducers from "./reducers";
-import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import MainPage from "./components/main_page";
 import createSagaMiddleware from "redux-saga";
@@ -28,10 +27,8 @@ const store = composeWithDevTools(applyMiddleware(sagaMiddleware))(createStore)(
   reducers,
   initialState
 );
-// const myStore = createStore(reducer, applyMiddleware(sagaMiddleware))
-sagaMiddleware.run(rootSaga);
 
-const action = type => store.dispatch({ type });
+sagaMiddleware.run(rootSaga);
 
 class App extends Component {
   render() {
