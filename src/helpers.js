@@ -13,10 +13,6 @@ export const getProfileImageURL = page => {
   return img ? img : false;
 };
 
-export const timeout = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 //  Function for filter
 export const filterInput = input => {
   const lines = input.split("\n");

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import Spinner from "../spinner";
 import localization from "../../lang";
-import { updateWinnersNum, validateWinnersNum, startPicking } from "../../actions";
+import { updateWinnersNum, startPicking } from "../../actions";
 import { calculateRemovingSpeed } from "../../helpers";
 
 class PickSettings extends Component {
@@ -17,7 +17,6 @@ class PickSettings extends Component {
       error,
       settings,
       updateWinnersNum,
-      validateWinnersNum,
       startPicking
     } = this.props;
 
@@ -42,8 +41,7 @@ class PickSettings extends Component {
                 type="number"
                 className="winners-num-input"
                 value={settings.winnersNum}
-                onChange={e => updateWinnersNum(e.currentTarget.value)}
-                onBlur={e => validateWinnersNum(e.currentTarget.value, profiles.length)}
+                onChange={e => updateWinnersNum(e.currentTarget.value, profiles.length)}
               />
             </div>
           )}
@@ -75,7 +73,6 @@ PickSettings.propTypes = {
     winnersNum: PropTypes.number.isRequired
   }),
   updateWinnersNum: PropTypes.func.isRequired,
-  validateWinnersNum: PropTypes.func.isRequired,
   startPicking: PropTypes.func.isRequired
 };
 
@@ -92,5 +89,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { updateWinnersNum, validateWinnersNum, startPicking }
+  { updateWinnersNum, startPicking }
 )(PickSettings);

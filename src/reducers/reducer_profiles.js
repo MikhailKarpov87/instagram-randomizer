@@ -1,7 +1,7 @@
 export default function(state = {}, action) {
   switch (action.type) {
     case "FETCHING_DATA_SUCCESS":
-      const result = action.payload.data;
+      const result = action.payload;
       return [...state, result];
 
     case "FINISH_PICKING":

@@ -15,6 +15,12 @@ export const FINISH_PICKING = "FINISH_PICKING";
 export const REMOVE_ALL = "REMOVE_ALL";
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 export const UPDATE_WINNERS_NUM = "UPDATE_WINNERS_NUM";
+export const HANDLE_CHANGE_LANGUAGE = "HANDLE_CHANGE_LANGUAGE";
+export const HANDLE_UPDATE_INPUT = "HANDLE_UPDATE_INPUT";
+export const HANDLE_FETCHING_DATA = "HANDLE_FETCHING_DATA";
+export const HANDLE_REMOVE_ALL = "HANDLE_REMOVE_ALL";
+export const HANDLE_UPDATE_WINNERS_NUM = "HANDLE_UPDATE_WINNERS_NUM";
+export const HANDLE_START_PICKING = "HANDLE_START_PICKING";
 
 //  Name of profile pic element on different languages for profiles list copy-paste feature
 //  Needed to filterInput function to match and filter profiles names in input text

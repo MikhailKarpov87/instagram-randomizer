@@ -3,9 +3,8 @@ export default function(state = {}, action) {
     case "FETCHING_DATA":
       return true;
 
-    case "FETCHING_DATA_SUCCESS":
-      const { total, done } = action.payload.progress;
-      return done !== total;
+    case "FETCHING_DATA_DONE":
+      return false;
 
     default:
       return state;
