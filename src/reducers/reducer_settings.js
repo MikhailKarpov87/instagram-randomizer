@@ -4,6 +4,7 @@ export default function(state = {}, action) {
       return { ...state, winnersNum: +action.payload.winnersNum };
 
     case "CHANGE_LANGUAGE":
+      // console.log(action);
       return { ...state, lang: action.payload };
 
     default:

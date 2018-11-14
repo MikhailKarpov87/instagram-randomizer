@@ -8,7 +8,7 @@ App features:
 - Profiles list may be pasted directly from Instagram web interface
 - App is getting images directly from Instagram page without using Instagram API
 
-[Demo] - coming soon
+[Demo2] - coming soon
 
 ### Installation
 

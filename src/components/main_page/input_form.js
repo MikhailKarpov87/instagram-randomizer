@@ -83,6 +83,7 @@ InputForm.propTypes = {
 };
 
 const mapStateToProps = state => {
+  console.log(state);
   return {
     loading: state.loading,
     input: state.input,

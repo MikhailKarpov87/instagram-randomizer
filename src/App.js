@@ -5,6 +5,8 @@ import reducers from "./reducers";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import MainPage from "./components/main_page";
+import createSagaMiddleware from "redux-saga";
+import { rootSaga } from "./actions/sagas";
 
 const initialState = {
   input: "",
@@ -20,12 +22,21 @@ const initialState = {
   }
 };
 
-const myStore = composeWithDevTools(applyMiddleware(thunk))(createStore);
+const sagaMiddleware = createSagaMiddleware();
+
+const store = composeWithDevTools(applyMiddleware(sagaMiddleware))(createStore)(
+  reducers,
+  initialState
+);
+// const myStore = createStore(reducer, applyMiddleware(sagaMiddleware))
+sagaMiddleware.run(rootSaga);
+
+const action = type => store.dispatch({ type });
 
 class App extends Component {
   render() {
     return (
-      <Provider store={myStore(reducers, initialState)}>
+      <Provider store={store}>
         <MainPage />
       </Provider>
     );
