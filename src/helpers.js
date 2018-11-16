@@ -1,5 +1,6 @@
 import { profilePicMatchTexts } from "./constants";
 
+//  Calculating remove animations speed based on number of items
 export const calculateRemovingSpeed = itemsNum => {
   if (itemsNum < 10) return 700;
   if (itemsNum >= 10 && itemsNum < 30) return 400;
@@ -7,21 +8,19 @@ export const calculateRemovingSpeed = itemsNum => {
   if (itemsNum >= 100) return 100;
 };
 
+// Gettings profile image URL from instagram web page with DOMParser
 export const getProfileImageURL = page => {
   const doc = new DOMParser().parseFromString(page, "text/html");
   const img = doc.querySelector("meta[property='og:image']").content;
   return img ? img : false;
 };
 
-export const timeout = ms => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-};
-
+//  Function for filtering input
 export const filterInput = input => {
   const lines = input.split("\n");
   let filteredInput = [];
   let resultInput;
-  //profile picture
+  //  Searching for element with profile name
   if (profilePicMatchTexts.some(value => input.includes(value))) {
     for (let id in lines) {
       //  Check for first row - in case if profilepic element was not selected
@@ -46,4 +45,9 @@ export const filterInput = input => {
     resultInput = input;
   }
   return resultInput;
+};
+
+//  Timeout function
+export const timeout = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
 };

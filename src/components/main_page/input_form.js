@@ -5,16 +5,21 @@ import PropTypes from "prop-types";
 import localization from "../../lang";
 import Spinner from "../spinner";
 import PickSettings from "./pick_settings";
-import { fetchUsersPics, handleInput, removeAll } from "../../actions";
+import { fetchProfilesImages, handleInput, removeAll } from "../../actions";
 import InputHint from "./input_hint";
 
 class InputForm extends Component {
-  handleButtonClick(e) {
-    this.props.fetchUsersPics(this.props.input);
-  }
-
   render() {
-    const { input, handleInput, profiles, winners, loading, removeAll, settings } = this.props;
+    const {
+      input,
+      profiles,
+      winners,
+      loading,
+      removeAll,
+      settings,
+      handleInput,
+      fetchProfilesImages
+    } = this.props;
     const lang = localization[settings.lang];
 
     return (
@@ -39,7 +44,7 @@ class InputForm extends Component {
             <div className="button">
               <button
                 className={`btn btn-primary btn-fix ${!input || loading ? "btn-disabled" : ""}`}
-                onClick={event => this.handleButtonClick(event)}
+                onClick={event => fetchProfilesImages(input)}
                 disabled={!input || loading}
               >
                 {loading ? lang.loading : lang.load}
@@ -71,15 +76,16 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   input: PropTypes.string.isRequired,
-  handleInput: PropTypes.func.isRequired,
   profiles: PropTypes.array.isRequired,
   winners: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  removeAll: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     lang: PropTypes.string.isRequired,
     winnersNum: PropTypes.number.isRequired
-  })
+  }),
+  fetchProfilesImages: PropTypes.func.isRequired,
+  handleInput: PropTypes.func.isRequired,
+  removeAll: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -94,5 +100,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchUsersPics, handleInput, removeAll }
+  { fetchProfilesImages, handleInput, removeAll }
 )(InputForm);
