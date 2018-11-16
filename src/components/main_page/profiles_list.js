@@ -2,13 +2,14 @@ import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import ProfilePic from "./profile";
+import Profile from "./profile";
+import Spinner from "../spinner";
 import { calculateRemovingSpeed } from "../../helpers";
 import localization from "../../lang";
 
 class ProfilesList extends PureComponent {
   render() {
-    const { profiles, winners, removedItems, settings } = this.props;
+    const { profiles, winners, removedItems, settings, loading } = this.props;
 
     //  Defining columns num for grid table based on number of profiles
     const columnsNum = winners.length ? winners.length : profiles.length > 20 ? 25 : 10;
@@ -24,7 +25,13 @@ class ProfilesList extends PureComponent {
       </div>
     ) : null;
 
-    return (
+    return loading ? (
+      <div className="profiles-container text-center">
+        <h3>
+          <Spinner isActive={loading} />
+        </h3>
+      </div>
+    ) : (
       <div className="profiles-container">
         {winnersText}
         <div
@@ -37,7 +44,7 @@ class ProfilesList extends PureComponent {
         >
           {profiles &&
             profiles.map((profile, id) => (
-              <ProfilePic
+              <Profile
                 img={profile.img}
                 name={profile.name}
                 key={profile.name}
@@ -55,6 +62,7 @@ class ProfilesList extends PureComponent {
 ProfilesList.propTypes = {
   profiles: PropTypes.array.isRequired,
   winners: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
   removedItems: PropTypes.array.isRequired,
   settings: PropTypes.shape({
     lang: PropTypes.string.isRequired,
@@ -67,11 +75,9 @@ const mapStateToProps = state => {
     profiles: state.profiles,
     removedItems: state.removedItems,
     winners: state.winners,
-    settings: state.settings
+    settings: state.settings,
+    loading: state.loading
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(ProfilesList);
+export default connect(mapStateToProps)(ProfilesList);

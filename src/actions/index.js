@@ -7,6 +7,7 @@ import {
   HANDLE_START_PICKING
 } from "../constants";
 
+//  Action creators for using in components
 export function changeLanguage(value) {
   return { type: HANDLE_CHANGE_LANGUAGE, payload: value };
 }
@@ -15,7 +16,7 @@ export function handleInput(input) {
   return { type: HANDLE_UPDATE_INPUT, payload: input };
 }
 
-export function fetchProfilesPics(profileNames) {
+export function fetchProfilesImages(profileNames) {
   return { type: HANDLE_FETCHING_DATA, payload: profileNames };
 }
 

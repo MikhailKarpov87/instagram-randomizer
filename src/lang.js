@@ -1,4 +1,6 @@
-//EN/RU Localizations
+//  Interface Localization
+//  RU, EN
+
 const localization = {
   ru: {
     inputListPlaceholder: "Добавьте список Instagram профилей",

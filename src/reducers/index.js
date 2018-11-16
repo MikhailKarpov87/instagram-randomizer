@@ -13,10 +13,10 @@ const rootReducer = combineReducers({
   input,
   profiles,
   winners,
+  removedItems,
   loading,
   picking,
   error,
-  removedItems,
   settings
 });
 

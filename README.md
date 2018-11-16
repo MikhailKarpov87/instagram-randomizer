@@ -2,6 +2,8 @@
 
 React/Redux App created for picking Instagarm random profile(s) from specified list.
 
+<img width="40%" src="https://s3.eu-central-1.amazonaws.com/github--projects/instagram-randomizer/instagram-randomizer.jpg" />
+
 App features:
 
 - Picking specified number of random profiles from specified list

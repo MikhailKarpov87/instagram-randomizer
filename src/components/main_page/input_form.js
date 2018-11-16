@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 
 import localization from "../../lang";
 import Spinner from "../spinner";
-import PickSettings from "./pick_settings";
-import { fetchProfilesPics, handleInput, removeAll } from "../../actions";
+import PickSettings from "./input_pick_settings";
+import { fetchProfilesImages, handleInput, removeAll } from "../../actions";
 import InputHint from "./input_hint";
 
 class InputForm extends Component {
@@ -18,7 +18,7 @@ class InputForm extends Component {
       removeAll,
       settings,
       handleInput,
-      fetchProfilesPics
+      fetchProfilesImages
     } = this.props;
     const lang = localization[settings.lang];
 
@@ -32,6 +32,7 @@ class InputForm extends Component {
                 <img src="images/how-to.gif" alt="how to add profiles list" width="320" />
               }
             />
+
             <textarea
               className="form-control"
               onChange={event => handleInput(event.currentTarget.value)}
@@ -44,7 +45,7 @@ class InputForm extends Component {
             <div className="button">
               <button
                 className={`btn btn-primary btn-fix ${!input || loading ? "btn-disabled" : ""}`}
-                onClick={() => fetchProfilesPics(input)}
+                onClick={() => fetchProfilesImages(input)}
                 disabled={!input || loading}
               >
                 {loading ? lang.loading : lang.load}
@@ -76,15 +77,16 @@ class InputForm extends Component {
 
 InputForm.propTypes = {
   input: PropTypes.string.isRequired,
-  handleInput: PropTypes.func.isRequired,
   profiles: PropTypes.array.isRequired,
   winners: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired,
-  removeAll: PropTypes.func.isRequired,
   settings: PropTypes.shape({
     lang: PropTypes.string.isRequired,
     winnersNum: PropTypes.number.isRequired
-  })
+  }),
+  handleInput: PropTypes.func.isRequired,
+  fetchProfilesImages: PropTypes.func.isRequired,
+  removeAll: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -99,5 +101,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchProfilesPics, handleInput, removeAll }
+  { fetchProfilesImages, handleInput, removeAll }
 )(InputForm);

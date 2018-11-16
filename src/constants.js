@@ -1,9 +1,8 @@
 //  Base url for http requests
-// export const BASE_URL = "https://dev.getyoumedia.com/inst_giveaway/test_data/test.php";
 export const BASE_URL = "https://www.instagram.com";
 
-//  URL of unknown pic
-export const UNKNOWN_PIC_URL = "/images/notfound_pic.jpg";
+//  URL for dummy unknown image
+export const UNKNOWN_IMG_URL = "/images/notfound_pic.jpg";
 
 //  Actions names
 export const FETCHING_DATA = "FETCHING_DATA";
@@ -21,9 +20,10 @@ export const HANDLE_FETCHING_DATA = "HANDLE_FETCHING_DATA";
 export const HANDLE_REMOVE_ALL = "HANDLE_REMOVE_ALL";
 export const HANDLE_UPDATE_WINNERS_NUM = "HANDLE_UPDATE_WINNERS_NUM";
 export const HANDLE_START_PICKING = "HANDLE_START_PICKING";
+export const FETCHING_DATA_DONE = "FETCHING_DATA_DONE";
 
 //  Name of profile pic element on different languages for profiles list copy-paste feature
-//  Needed to filterInput function to match and filter profiles names in input text
+//  Needed for filterInput function to match and filter profiles names from input text
 export const profilePicMatchTexts = [
   "Фото профиля",
   "profile picture",
