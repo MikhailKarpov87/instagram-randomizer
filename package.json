@@ -1,7 +1,8 @@
 {
-  "name": "instagram-giveaway-app",
+  "name": "instagram-randomizer",
   "version": "0.1.0",
   "private": false,
+  "homepage": "https://mikhailkarpov87.github.io/instagram-randomizer",
   "dependencies": {
     "ajv": "^6.5.1",
     "axios": "^0.19.0",
@@ -19,9 +20,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "prop-types": "^15.6.2",
     "redux-devtools": "^3.4.1",
     "redux-devtools-extension": "^2.13.5"

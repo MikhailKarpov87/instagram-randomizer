@@ -10,7 +10,7 @@ _App features:_
 - List of profiles could be pasted directly from Instagram web interface
 - App is getting images directly from Instagram page without using Instagram API
 
-[Demo](https://rndmizer.space/)
+[Demo](https://mikhailkarpov87.github.io/instagram-randomizer/)
 
 ### Installation
 
