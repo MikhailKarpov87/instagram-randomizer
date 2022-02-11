@@ -4,7 +4,7 @@
   "private": false,
   "homepage": "https://mikhailkarpov87.github.io/instagram-randomizer",
   "dependencies": {
-    "ajv": "^6.5.1",
+    "ajv": "^6.12.3",
     "axios": "^0.19.0",
     "lodash": "^4.17.15",
     "react": "^16.4.1",
